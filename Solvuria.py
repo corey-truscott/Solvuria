@@ -16,8 +16,6 @@ UserData = None
 
 random.seed(secrets.randbelow(1<<64))
 
-Subjects = [{"id":"1","name":"Science"},{"id":"2","name":"Maths"},{"id":"3","name":"English"},{"id":"29","name":"Geography"},{"id":"30","name":"History"}]
-
 def GetPasswordInput():
     # Taken and modified from the pwinput python library
     # https://github.com/asweigart/pwinput
