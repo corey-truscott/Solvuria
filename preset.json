@@ -1,0 +1,9 @@
+{
+    "should_use_preset": false,
+    "maximum_delay_between_questions": 4,
+    "minimum_delay_between_questions": 1,
+    "maximum_delay_between_quizzes": 16,
+    "minimum_delay_between_quizzes": 12,
+    "percentage_to_answer_correctly": 80,
+    "stop_after_time": 10
+}
