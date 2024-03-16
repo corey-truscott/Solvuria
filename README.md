@@ -14,9 +14,6 @@ Gone are the days of tediously answering each Tassomai question manually. Solvur
 **Effortless Time Management:**<br>
 Solvuria understands that your time is precious. With its built-in time management feature, you can set predefined durations for your Tassomai sessions. Simply specify the amount of time you want to dedicate, and Solvuria will handle the rest, automatically halting operations once the designated time elapses.
 
-**Seamless User Experience:**<br>
-Experience unparalleled convenience with Solvuria's intuitive interface. Effortlessly navigate through its user-friendly design, empowering you to unleash the full potential of automated Tassomai solving without any hassle.
-
 ## Disclaimer
 By using this program you understand that I am <em><strong>not</strong></em> responsible for any bans which may result from using this program.<br>
 Please use this program with caution and only use it on testing accounts.<br>
