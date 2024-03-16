@@ -1,6 +1,6 @@
 <h1 align=center>Solvuria - The best tassomai question solver</h1>
 
-[Join the tassomai automation discord server](https://discord.gg/c9PuB3du77)<br>
+[Join the Solvuria discord server](https://discord.gg/vAEapP38s6)<br>
 
 **Are you tired of spending countless time answering Tassomai questions manually?**<br>
 Say hello to Solvuria – your personalized automated solution to conquer Tassomai with ease. Solvuria is meticulously designed to streamline your Tassomai experience, providing unparalleled convenience and efficiency.
