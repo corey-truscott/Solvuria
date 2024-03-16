@@ -236,7 +236,7 @@ except:
 
 if percentageCorrect > 100 or percentageCorrect < 0:
     percentageCorrect = 80 + secrets.randbelow(6)
-if stopAfterTime != 0:
+if stopAfterTime:
     stopAfterTime += secrets.randbelow(20)
 
 firstTimeMeasure = time.time()
@@ -263,7 +263,7 @@ while True:
             print("[-] Failed to answer question, sleeping 20 seconds!")
             time.sleep(20)
 
-    if stopAfterTime != 0:
+    if stopAfterTime :
         if time.time() - firstTimeMeasure > stopAfterTime:
             print("[!] The program will now close as " + str(int(stopAfterTime / 60)) + " minute(s) have passed!")
             break
