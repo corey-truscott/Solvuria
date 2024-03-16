@@ -236,7 +236,7 @@ except:
 
 if percentageCorrect > 100 or percentageCorrect < 0:
     percentageCorrect = 80 + secrets.randbelow(6)
-if stopAfterTime != 60:
+if stopAfterTime != 0:
     stopAfterTime += secrets.randbelow(20)
 
 firstTimeMeasure = time.time()
