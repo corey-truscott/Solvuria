@@ -1,3 +1,4 @@
+from getpass import getpass
 from msvcrt import getch
 import hashlib
 import requests
@@ -6,6 +7,7 @@ import random
 import json
 import time
 import sys
+import os
 
 UserIdentifier = None
 UserAgent = None
@@ -201,12 +203,36 @@ if not Authenticate(email, passw):
 
 print("[@] Logged in as \"" +  UserData["firstName"] + " " + UserData["lastName"] + "\"\n")
 
-maxDelayBetweenQuestions = float(input("[>] Maximum delay between questions (seconds): "))
-minDelayBetweenQuestions = float(input("[>] Minimum delay between questions (seconds): "))
-maxDelayBetweenQuizzes = float(input("[>] Maximum delay between quizzes (seconds): ")) / 2 # These are divided by 2 because they are split between the time before fetching
-minDelayBetweenQuizzes = float(input("[>] Minimum delay between quizzes (seconds): ")) / 2 # the quiz and the time before answering the first question
-percentageCorrect = int(input("[>] Percentage of questions to answer correctly: "))
-stopAfterTime = int(input("[>] Stop after N minutes (0 for infinite): ")) * 60
+maxDelayBetweenQuestions = None
+minDelayBetweenQuestions = None
+maxDelayBetweenQuizzes = None
+minDelayBetweenQuizzes = None
+percentageCorrect = None
+stopAfterTime = None
+
+try:
+    with open("preset.json", "r") as f:
+        j = json.load(f)
+
+        if j["should_use_preset"]:
+            maxDelayBetweenQuestions = j["maximum_delay_between_questions"]
+            minDelayBetweenQuestions = j["minimum_delay_between_questions"]
+            maxDelayBetweenQuizzes = j["maximum_delay_between_quizzes"] / 2
+            minDelayBetweenQuizzes = j["minimum_delay_between_quizzes"] / 2
+            percentageCorrect = j["percentage_to_answer_correctly"]
+            stopAfterTime = j["stop_after_time"] * 60
+            print("[+] Loaded settings from preset.json file")
+            getpass("[>] Press enter to start: ")
+        else:
+            raise Exception("NoPreset")
+except:
+    maxDelayBetweenQuestions = float(input("[>] Maximum delay between questions (seconds): "))
+    minDelayBetweenQuestions = float(input("[>] Minimum delay between questions (seconds): "))
+    maxDelayBetweenQuizzes = float(input("[>] Maximum delay between quizzes (seconds): ")) / 2 # These are divided by 2 because they are split between the time before fetching
+    minDelayBetweenQuizzes = float(input("[>] Minimum delay between quizzes (seconds): ")) / 2 # the quiz and the time before answering the first question
+    percentageCorrect = int(input("[>] Percentage of questions to answer correctly: "))
+    stopAfterTime = int(input("[>] Stop after N minutes (0 for infinite): ")) * 60
+
 
 if percentageCorrect > 100 or percentageCorrect < 0:
     percentageCorrect = 80 + secrets.randbelow(6)
