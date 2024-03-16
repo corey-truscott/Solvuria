@@ -16,6 +16,8 @@ UserData = None
 
 random.seed(secrets.randbelow(1<<64))
 
+Subjects = [{"id":"1","name":"Science"},{"id":"2","name":"Maths"},{"id":"3","name":"English"},{"id":"29","name":"Geography"},{"id":"30","name":"History"}]
+
 def GetPasswordInput():
     # Taken and modified from the pwinput python library
     # https://github.com/asweigart/pwinput
@@ -110,10 +112,10 @@ def Authenticate(email: str, password: str):
     
 ################################################################################################################################################################
 
-def GetQuizzes():
+def GetQuizzes(SubjectId: str):
     global UserAgent, AuthToken
 
-    return requests.get("https://kolin.tassomai.com/api/quiz/next/1/?capabilities=%7B%22image%22:true,%22mathjax%22:true,%22isMobile%22:false,%22cordovaPlatform%22:null,%22wondeReady%22:true%7D", headers={
+    return requests.get("https://kolin.tassomai.com/api/quiz/next/" + SubjectId + "/?capabilities=%7B%22image%22:true,%22mathjax%22:true,%22isMobile%22:false,%22cordovaPlatform%22:null,%22wondeReady%22:true%7D", headers={
         "accept": "application/json; version=1.18",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         "authorization": AuthToken,
@@ -186,6 +188,26 @@ def AnswerQuestion(answerId: str, askingId: str):
 
     return r.status_code == 200
 
+def GetSubjectList():
+    global UserAgent, AuthToken
+
+    return requests.get("https://kolin.tassomai.com/api/user/extra/", headers={
+        "accept": "application/json; version=1.18",
+        "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "authorization": AuthToken,
+        "content-type": "application/json",
+        "priority": "u=1, i",
+        "sec-ch-ua": "\"Not(A:Brand\";v=\"24\", \"Chromium\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "origin": "https://app.tassomai.com/",
+        "referer": "https://app.tassomai.com/",
+        "User-Agent": UserAgent
+    }).json()["extra"]["currentDisciplines"]
+
 ################################################################################################################################################################
 
 UserAgent = GetUserAgent()
@@ -202,6 +224,20 @@ if not Authenticate(email, passw):
     sys.exit()
 
 print("[@] Logged in as \"" +  UserData["firstName"] + " " + UserData["lastName"] + "\"\n")
+subjectId = ""
+
+subjectList = GetSubjectList()
+if len(subjectList) == 1:
+    subjectId = subjectList[0]["id"]
+    print("[>] Selected " + subjectList[0]["name"].lower() + " as it is the only available subject!")
+else:
+    i = 0
+    for subject in subjectList:
+        i += 1
+        print("[" + str(i) + "] Found subject with name: " + subject["name"])
+    choice = int(input("[>] Enter the number next to the subject which you would like to do: ")) - 1
+    subjectId = subjectList[choice]["id"]
+    print("[>] Selected " + subjectList[choice]["name"].lower() + "!")
 
 maxDelayBetweenQuestions = None
 minDelayBetweenQuestions = None
@@ -221,12 +257,12 @@ try:
             minDelayBetweenQuizzes = j["minimum_delay_between_quizzes"] / 2
             percentageCorrect = j["percentage_to_answer_correctly"]
             stopAfterTime = j["stop_after_time"] * 60
-            print("[+] Loaded settings from preset.json file")
+            print("\n[+] Loaded settings from preset.json file")
             getpass("[>] Press enter to start: ")
         else:
             raise Exception("NoPreset")
 except:
-    maxDelayBetweenQuestions = float(input("[>] Maximum delay between questions (seconds): "))
+    maxDelayBetweenQuestions = float(input("\n[>] Maximum delay between questions (seconds): "))
     minDelayBetweenQuestions = float(input("[>] Minimum delay between questions (seconds): "))
     maxDelayBetweenQuizzes = float(input("[>] Maximum delay between quizzes (seconds): ")) / 2 # These are divided by 2 because they are split between the time before fetching
     minDelayBetweenQuizzes = float(input("[>] Minimum delay between quizzes (seconds): ")) / 2 # the quiz and the time before answering the first question
@@ -242,7 +278,7 @@ if stopAfterTime:
 firstTimeMeasure = time.time()
 
 while True:
-    quiz = GetQuizzes()[0]
+    quiz = GetQuizzes(subjectId)[0]
     time.sleep(random.uniform(minDelayBetweenQuizzes, maxDelayBetweenQuizzes))
     courseId, playlistId = quiz["courseId"], quiz["playlistId"]
     q = time.time()
