@@ -74,13 +74,13 @@ A - We cannot say whether or not you will get in any kind of trouble using this,
 
 <br>
 
-Q - How do i stop it if i've made it last to long
+Q - How do I stop it if i've made it last to long
 
 A - You can stop the program by either pressing CTRL + C or closing CMD/your terminal of choice. 
 
 <br>
 
-Q - How do I use the .json file, i don't understand what these things mean
+Q - How do I configure the presets.json file?
 
 A - See the table above for infomation on the .json file.
 
