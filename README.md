@@ -89,7 +89,7 @@ A - You can stop the program by either pressing CTRL + C or closing CMD/your ter
 
 <br>
 
-Q - How do I configure the presets.json file?
+Q - How do I configure the preset.json file?
 
 A - See the table above for infomation on the .json file.
 
