@@ -81,10 +81,10 @@ Q - how do I use the .json file, i don't understand what these things mean
 A - See the table below for infomation on the .json file.
 
 ## Credits
-Resist - @.resist
-Ayaan. - @aq_1
-Corey  - @gregorio.zeppeli
-E4734  - @e4734
+* Resist - @.resist
+* Ayaan. - @aq_1
+* Corey  - @gregorio.zeppeli
+* E4734  - @e4734
 
 ### Disclaimer
 By using this program you understand that I, and anyone else involved in the production of this bot is not responsible for any problems
