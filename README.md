@@ -56,33 +56,33 @@ If you need help setting this up, you can always [join the discord.](https://dis
 
 ## Q&A - Common Questions 
 
-Q - does this have any hidden code that could effect my computer
+Q - Does this have any hidden code that could effect my computer
 
 A - No, Solvuria is completely open source and can be read and edited in anyway you like
 
 <br>
 
-Q - will i struggle to set this up
+Q - Will i struggle to set this up
 
 A - Simply, no, Solvuria is super easy and simple to set up, see the installation guide 
 
 <br>
 
-Q - will i get punished for using this 
+Q - Will i get punished for using this 
 
 A - We cannot say whether or not you will get in any kind of trouble using this, use it with caution. 
 
 <br>
 
-Q - how do i stop it if i've made it last to long
+Q - How do i stop it if i've made it last to long
 
 A - You can stop the program by either pressing CTRL + C or closing CMD/your terminal of choice. 
 
 <br>
 
-Q - how do I use the .json file, i don't understand what these things mean
+Q - How do I use the .json file, i don't understand what these things mean
 
-A - See the table below for infomation on the .json file.
+A - See the table above for infomation on the .json file.
 
 ## Credits
 * Resist - @.resist
