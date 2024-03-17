@@ -9,41 +9,82 @@ The bot can vary its time between questions, and quizzes, aswell as allowing for
 the chance of the bot being detected.
 If you need help setting this up, you can always [join the discord.](https://discord.gg/vAEapP38s6)
 
+## Installation
+<strong>[1]</strong> On the main github page, at the top, click <em>"Code" > "Download Zip"<em>
+
+<strong>[2]</strong> Using CMD/your terminal of choice, run <em>"pip install requests" // Run "Requirements.bat"<em>
+
+<strong>[3]</strong> In the directory, run the <em>Solvuria.py</em> file
+
+<strong>[4]</strong> Log in with your Tassomai details and get started!
+
 ## Presets
 
 | Option                            | Description or valid inputs        |
 | ----------------------------------|----------------------------------- |
-| "should_use_preset"               | valid inputs: true, false          |
+| <strong>"should_use_preset"</strong>               | valid inputs: true, false          |
 |                                   |                                    |
-| "maximum_delay_between_questions" | valid input: int                   |
+| <strong>"maximum_delay_between_questions"</strong> | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | maximum delay between questions in |
 |                                   | seconds                            |
 |                                   |                                    |
-| "minimum_delay_between_question"  | valid input: int                   |
+| <strong>"minimum_delay_between_question"</strong>  | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | minimum delay between questions in |
 |                                   | seconds                            |
 |                                   |                                    |
-| "maximum_delay_between_quizzes"   | valid input: int                   |
+| <strong>"maximum_delay_between_quizzes"</strong>   | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | maximum delay between quizzes in   |
 |                                   | seconds                            |
 |                                   |                                    |
-| "minimum_delay_between_quizzes"   | valid input: int                   |
+| <strong>"minimum_delay_between_quizzes"</strong>   | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | minimum delay between quizzes in   |
 |                                   | seconds                            |
 |                                   |                                    |
-| "percentage_to_answer_correctly"  | valid input: int                   |
+| <strong>"percentage_to_answer_correctly"</strong>  | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | percentage of questions that will  |
 |                                   | be answered correctly              |
 |                                   |                                    |
-| "stop_after_time"                 | valid input: int                   |
+| <strong>"stop_after_time"</strong>                 | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | delay after starting to stop in    |
 |                                   | minutes                            |
+
+## Q&A - Common Questions 
+
+Q - does this have any hidden code that could effect my computer
+
+A - No, Solvuria is completely open source and can be read and edited in anyway you like
+
+
+Q - will i struggle to set this up
+
+A - Simply, no, Solvuria is super easy and simple to set up, see the installation guide 
+
+
+Q - will i get punished for using this 
+
+A - We cannot say whether or not you will get in any kind of trouble using this, use it with caution. 
+
+
+Q - how do i stop it if i've made it last to long
+
+A - You can stop the program by either pressing CTRL + C or closing CMD/your terminal of choice. 
+
+
+Q - how do I use the .json file, i don't understand what these things mean
+
+A - See the table below for infomation on the .json file.
+
+## Credits
+Resist - @.resist
+Ayaan. - @aq_1
+Corey  - @gregorio.zeppeli
+E4734  - @e4734
 
 ### Disclaimer
 By using this program you understand that I, and anyone else involved in the production of this bot is not responsible for any problems
