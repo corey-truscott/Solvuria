@@ -10,11 +10,11 @@ the chance of the bot being detected.
 If you need help setting this up, you can always [join the discord.](https://discord.gg/vAEapP38s6)
 
 ## Installation
-<strong>[1]</strong> On the main github page, at the top, click <em>"Code" > "Download Zip"<em>
+<strong>[1]</strong> On the main github page, at the top, click <em>"Code" > "Download Zip"</em>
 
-<strong>[2]</strong> Using CMD/your terminal of choice, run <em>"pip install requests" // Run "Requirements.bat"<em>
+<strong>[2]</strong> Using CMD/your terminal of choice, run <em>"pip install requests" // Run "Install Requirements.bat"</em>
 
-<strong>[3]</strong> In the directory, run the <em>Solvuria.py</em> file
+<strong>[3]</strong> In the directory, run the <em>"Solvuria.py"</em> file
 
 <strong>[4]</strong> Log in with your Tassomai details and get started!
 
