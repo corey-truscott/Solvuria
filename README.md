@@ -21,11 +21,13 @@ Solvuria understands that your time is precious. With its built-in time manageme
 ## Installation
 <strong>[1]</strong> On the main github page, at the top, click <em>"Code" > "Download Zip"</em>
 
-<strong>[2]</strong> Using CMD/your terminal of choice, run <em>"pip install requests" // Run "Install Requirements.bat"</em>
+<strong>[2]</strong> Download [python](https://python.org/) if you havent already.
 
-<strong>[3]</strong> In the directory, run the <em>"Solvuria.py"</em> file
+<strong>[3]</strong> Using CMD/your terminal of choice, run <em>"pip install requests"</em> or run <em>"Install Requirements.bat"</em> in your file browser
 
-<strong>[4]</strong> Log in with your Tassomai details and get started!
+<strong>[4]</strong> In the directory, run the <em>"Solvuria.py"</em> file
+
+<strong>[5]</strong> Log in with your Tassomai details and get started!
 
 ## Presets
 
