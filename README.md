@@ -3,15 +3,19 @@
 [Join the solvuria discord server](https://discord.gg/vAEapP38s6)<br>
 
 <strong>Are you tired of spending countless time answering Tassomai questions manually?:</strong>
+
 Say hello to Solvuria – your personalized automated solution to conquer Tassomai with ease. Solvuria is meticulously designed to streamline your Tassomai experience, providing unparalleled convenience and efficiency.
 
 <strong>Customizable Efficiency:</strong>
+
 With Solvuria, you're in control. Tailor your Tassomai-solving experience to your preferences with customizable settings. Adjust delays between questions and quizzes to match your pace, ensuring optimal performance without feeling rushed. Set the desired percentage of correct answers, empowering you to strike the perfect balance between accuracy and speed.
 
 <strong>Automated Precision:</strong>
+
 Gone are the days of tediously answering each Tassomai question manually. Solvuria harnesses the power of automation to swiftly tackle every query with precision. Whether it's biology, chemistry, or physics, Solvuria navigates through Tassomai's challenges effortlessly, saving you valuable time and effort.
 
 <strong>Effortless Time Management:</strong>
+
 Solvuria understands that your time is precious. With its built-in time management feature, you can set predefined durations for your Tassomai sessions. Simply specify the amount of time you want to dedicate, and Solvuria will handle the rest, automatically halting operations once the designated time elapses.
 
 ## Installation
