@@ -23,7 +23,7 @@ Solvuria understands that your time is precious. With its built-in time manageme
 
 <strong>[2]</strong> Download [python](https://python.org/) if you havent already.
 
-<strong>[3]</strong> Run <em>"Install Requirements.bat"</em> if you are on windows, or "Install Requirements.sh" if you are on linux.
+<strong>[3]</strong> Run <em>"Install Requirements.bat"</em> if you are on windows, or <em>"Install Requirements.sh"</em> if you are on linux.
 
 <strong>[4]</strong> In the directory, run the <em>"Solvuria.py"</em> file
 
