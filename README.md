@@ -65,25 +65,25 @@ Solvuria understands that your time is precious. With its built-in time manageme
 
 ## Q&A - Common Questions 
 
-Q - Does this have any hidden code that could effect my computer
+Q - Is there any hidden code that could harm my computer?
 
-A - No, Solvuria is completely open source and can be read and edited in anyway you like
-
-<br>
-
-Q - Will i struggle to set this up
-
-A - Simply, no, Solvuria is super easy and simple to set up, see the installation guide 
+A - No, Solvuria is completely open source and does not contain any malicious code. You are free to view the code and/or edit it how you like.
 
 <br>
 
-Q - Will i get punished for using this 
+Q - Is Solvuria hard to setup?
 
-A - We cannot say whether or not you will get in any kind of trouble using this, use it with caution. 
+A - Solvuria is super easy and simple to set up, see the installation guide.
 
 <br>
 
-Q - How do I stop it if i've made it last to long
+Q - Will I get punished/banned for using this?
+
+A - This project was made purely for testing, we do not recommend using it in a live environment.
+
+<br>
+
+Q - How do I stop the program?
 
 A - You can stop the program by either pressing CTRL + C or closing CMD/your terminal of choice. 
 
@@ -94,15 +94,14 @@ Q - How do I configure the presets.json file?
 A - See the table above for infomation on the .json file.
 
 ## Credits
-* Resist - @.resist
-* Ayaan. - @aq_1
-* Corey  - @gregorio.zeppeli
-* E4734  - @e4734
+* Resist - @.resist - Creator of Solvuria
+* Ayaan. - @aq_1 - Helped with testing version 1.2.0
+* Corey  - @gregorio.zeppeli - Helped with creating the README.md file
+* E4734  - @e4734 - Helped with creating the README.md file
 
 ### Disclaimer
-By using this program you understand that I, and anyone else involved in the production of this bot is not responsible for any problems
-that may incur, general issues, and bans that result from the use of this program, use the program with caution.
-It is only made to be used on testing accounts, and with caution. 
+By using this program you understand that I am <em><strong>not</strong></em> responsible for any bans which may result from using this program.<br>
+Please use this program with caution and only use it on testing accounts.<br>
 
-###### There is no plans and there will never be any plans for a GUI version of Solvuria so do not ask or request one, Solvuria is purely CLI and it will stay that way for aslong as it exists
+###### There is no plans and there will never be any plans for a GUI version of Solvuria so do not ask or request one, Solvuria is purely CLI and it will stay that way for aslong as it exists.
 
