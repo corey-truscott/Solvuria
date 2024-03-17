@@ -79,7 +79,7 @@ A - Solvuria is super easy and simple to set up, see the installation guide.
 
 Q - Will I get punished/banned for using this?
 
-A - This project was made purely for testing, we do not recommend using it in a live environment.
+A - This project was made purely for testing and demonstrational purposes, we do not recommend using it in a live environment.
 
 <br>
 
