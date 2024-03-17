@@ -14,32 +14,32 @@ If you need help setting this up, you can always [join the discord.](https://dis
 | Option                            | Description or valid inputs        |
 | ----------------------------------|----------------------------------- |
 | "should_use_preset"               | valid inputs: true, false          |
-| ---------------------------------------------------------------------- |
+|                                   |                                    |
 | "maximum_delay_between_questions" | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | maximum delay between questions in |
 |                                   | seconds                            |
-| ----------------------------------|----------------------------------- |
+|                                   |                                    |
 | "minimum_delay_between_question"  | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | minimum delay between questions in |
 |                                   | seconds                            |
-| ----------------------------------|----------------------------------- |
+|                                   |                                    |
 | "maximum_delay_between_quizzes"   | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | maximum delay between quizzes in   |
 |                                   | seconds                            |
-| ----------------------------------|----------------------------------- |
+|                                   |                                    |
 | "minimum_delay_between_quizzes"   | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | minimum delay between quizzes in   |
 |                                   | seconds                            |
-| ----------------------------------|----------------------------------- |
+|                                   |                                    |
 | "percentage_to_answer_correctly"  | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | percentage of questions that will  |
 |                                   | be answered correctly              |
-| ----------------------------------|----------------------------------- |
+|                                   |                                    |
 | "stop_after_time"                 | valid input: int                   |
 |                                   | int 0: ∞                           |
 |                                   | delay after starting to stop in    |
