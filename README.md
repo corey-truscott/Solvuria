@@ -5,7 +5,7 @@
 <strong>Are you tired of spending countless time answering Tassomai questions manually?:</strong>
 Say hello to Solvuria – your personalized automated solution to conquer Tassomai with ease. Solvuria is meticulously designed to streamline your Tassomai experience, providing unparalleled convenience and efficiency.
 
-<strongCustomizable Efficiency:</strong>
+<strong>Customizable Efficiency:</strong>
 With Solvuria, you're in control. Tailor your Tassomai-solving experience to your preferences with customizable settings. Adjust delays between questions and quizzes to match your pace, ensuring optimal performance without feeling rushed. Set the desired percentage of correct answers, empowering you to strike the perfect balance between accuracy and speed.
 
 <strong>Automated Precision:</strong>
