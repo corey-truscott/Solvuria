@@ -9,6 +9,8 @@ import time
 import sys
 import os
 
+VERSION = 121
+
 UserIdentifier = None
 UserAgent = None
 AuthToken = None
@@ -158,7 +160,7 @@ def FetchQuizQuestions(courseId: str, playlistId: str):
         },
         "course": courseId,
         "playlist": playlistId,
-        "requestTime": str(int(time.time_ns() / 1000000)),
+        "requestTime": int(time.time_ns() / 1000000),
         "was_recommended": True
     })).json()["questions"]
 
@@ -211,7 +213,15 @@ def GetSubjectList():
 UserAgent = GetUserAgent()
 
 print("[>] Solvuria - Automated answer solver for tassomai")
+
+latest = requests.get("https://api.github.com/repos/bp-resist/Solvuria/releases/latest").json()
+versionName = latest["tag_name"]
+if int(versionName.replace(".", "").replace("v", "")) > VERSION:
+    print("[+] Newer release of solvuria is available on github: " + versionName + " > v" + ".".join(list(str(VERSION))))
+
 print("[~] https://github.com/bp-resist/Solvuria  \n" + ("-"*51+"\n"))
+
+
 
 email = input("[>] Enter your email for signing into tassomai: ")
 passw = GetPasswordInput()
