@@ -96,8 +96,8 @@ A - See the table above for infomation on the .json file.
 ## Credits
 * Resist - @.resist - Creator of Solvuria
 * Ayaan. - @aq_1 - Helped with testing version 1.2.0
-* Corey  - @gregorio.zeppeli - Helped with creating the README.md file
-* E4734  - @e4734 - Helped with creating the README.md file
+* Corey  - @gregorio.zeppeli - Created the README.md file
+* E4734  - @e4734 - Created the README.md file
 
 ### Disclaimer
 By using this program you understand that I am <em><strong>not</strong></em> responsible for any bans which may result from using this program.<br>
