@@ -10,9 +10,9 @@ import os
 
 # imports msvcrt for windows, or getch for linux
 # and sets the correct enter keycode for each os
+enterKeyCode = 13
 try:
     from msvcrt import getch
-    enterKeyCode = 13
 except ImportError:
     from getch import getch
     enterKeyCode = 10
