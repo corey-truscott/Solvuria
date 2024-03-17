@@ -1,5 +1,4 @@
 from getpass import getpass
-from msvcrt import getch
 import hashlib
 import requests
 import secrets
@@ -8,6 +7,15 @@ import json
 import time
 import sys
 import os
+
+# imports msvcrt for windows, or getch for linux
+# and sets the correct enter keycode for each os
+try:
+    from msvcrt import getch
+    enterKeyCode = 13
+except ImportError:
+    from getch import getch
+    enterKeyCode = 10
 
 VERSION = 121
 
@@ -27,7 +35,7 @@ def GetPasswordInput():
     sys.stdout.flush()
     while True:
         key = ord(getch())
-        if key == 13:
+        if key == enterKeyCode:
             sys.stdout.write('\n')
             return ''.join(enteredPassword)
         elif key in (8, 127):
