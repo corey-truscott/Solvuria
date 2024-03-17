@@ -24,23 +24,23 @@ If you need help setting this up, you can always [join the discord.](https://dis
 | ----------------------------------|----------------------------------- |
 | <strong>"should_use_preset"</strong>               | valid inputs: true, false          |
 |                                   |                                    |
-| <strong>"maximum_delay_between_questions"</strong> | valid input: int                   |
-|                                   | int 0: ∞                           |
+| <strong>"maximum_delay_between_questions"</strong> | valid input: float                   |
+|                                   | float 0: ∞                           |
 |                                   | maximum delay between questions in |
 |                                   | seconds                            |
 |                                   |                                    |
-| <strong>"minimum_delay_between_question"</strong>  | valid input: int                   |
-|                                   | int 0: ∞                           |
+| <strong>"minimum_delay_between_question"</strong>  | valid input: float                   |
+|                                   | float 0: ∞                           |
 |                                   | minimum delay between questions in |
 |                                   | seconds                            |
 |                                   |                                    |
-| <strong>"maximum_delay_between_quizzes"</strong>   | valid input: int                   |
-|                                   | int 0: ∞                           |
+| <strong>"maximum_delay_between_quizzes"</strong>   | valid input: float                   |
+|                                   | float 0: ∞                           |
 |                                   | maximum delay between quizzes in   |
 |                                   | seconds                            |
 |                                   |                                    |
-| <strong>"minimum_delay_between_quizzes"</strong>   | valid input: int                   |
-|                                   | int 0: ∞                           |
+| <strong>"minimum_delay_between_quizzes"</strong>   | valid input: float                   |
+|                                   | float 0: ∞                           |
 |                                   | minimum delay between quizzes in   |
 |                                   | seconds                            |
 |                                   |                                    |
@@ -49,8 +49,8 @@ If you need help setting this up, you can always [join the discord.](https://dis
 |                                   | percentage of questions that will  |
 |                                   | be answered correctly              |
 |                                   |                                    |
-| <strong>"stop_after_time"</strong>                 | valid input: int                   |
-|                                   | int 0: ∞                           |
+| <strong>"stop_after_time"</strong>                 | valid input: float                   |
+|                                   | float 0: ∞                           |
 |                                   | delay after starting to stop in    |
 |                                   | minutes                            |
 
