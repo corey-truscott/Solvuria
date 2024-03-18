@@ -220,7 +220,7 @@ def GetSubjectList():
 
 UserAgent = GetUserAgent()
 
-print("[>] Solvuria - Automated answer solver for tassomai")
+print("[>] Solvuria - Enhance your learning experience")
 
 latest = requests.get("https://api.github.com/repos/bp-resist/Solvuria/releases/latest").json()
 versionName = latest["tag_name"]
