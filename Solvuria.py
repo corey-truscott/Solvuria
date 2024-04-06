@@ -1,12 +1,13 @@
-from getpass import getpass
 import hashlib
-import requests
-import secrets
-import random
 import json
-import time
-import sys
 import os
+import random
+import secrets
+import sys
+import time
+from getpass import getpass
+
+import requests
 
 # imports msvcrt for windows, or getch for linux
 # and sets the correct enter keycode for each os
@@ -17,7 +18,7 @@ except ImportError:
     from getch import getch
     enterKeyCode = 10
 
-VERSION = 121
+VERSION = 130
 
 UserIdentifier = None
 UserAgent = None
@@ -76,11 +77,14 @@ def GetUserAgent():
         [
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.3",
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.3",
+            "Mozilla/5.0 (Windows NT 10.0; rv:124.0) Gecko/20100101 Firefox/124.0"
         ])
 
 def Authenticate(email: str, password: str):
     try:
-        global UserAgent, UserIdentifier
+        global UserData, AuthToken, UserIdentifier
         Response = requests.post("https://kolin.tassomai.com/api/user/login/", headers={
             "accept": "application/json; version=1.18",
             "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
@@ -107,22 +111,17 @@ def Authenticate(email: str, password: str):
             "password": password
         })).json()
         
-
-        global UserData, AuthToken
         UserData = Response["user"]
         AuthToken = "Bearer " + Response["token"]
         UserIdentifier = str(UserData["id"])
 
         return True
     except Exception as ex:
-        print(ex)
         return False
     
 ################################################################################################################################################################
 
 def GetQuizzes(SubjectId: str):
-    global UserAgent, AuthToken
-
     return requests.get("https://kolin.tassomai.com/api/quiz/next/" + SubjectId + "/?capabilities=%7B%22image%22:true,%22mathjax%22:true,%22isMobile%22:false,%22cordovaPlatform%22:null,%22wondeReady%22:true%7D", headers={
         "accept": "application/json; version=1.18",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
@@ -140,9 +139,7 @@ def GetQuizzes(SubjectId: str):
         "User-Agent": UserAgent
     }).json()["quizzes"]
 
-def FetchQuizQuestions(courseId: str, playlistId: str):
-    global UserAgent, AuthToken
-
+def FetchQuizData(courseId: str, playlistId: str):
     return requests.post("https://kolin.tassomai.com/api/quiz/", headers={
         "accept": "application/json; version=1.18",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
@@ -170,7 +167,7 @@ def FetchQuizQuestions(courseId: str, playlistId: str):
         "playlist": playlistId,
         "requestTime": int(time.time_ns() / 1000000),
         "was_recommended": True
-    })).json()["questions"]
+    })).json()
 
 def AnswerQuestion(answerId: str, askingId: str):
     r = requests.post("https://kolin.tassomai.com/api/answer/" + str(asking_id) + "/", headers={
@@ -197,8 +194,6 @@ def AnswerQuestion(answerId: str, askingId: str):
     return r.status_code == 200
 
 def GetSubjectList():
-    global UserAgent, AuthToken
-
     return requests.get("https://kolin.tassomai.com/api/user/extra/", headers={
         "accept": "application/json; version=1.18",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
@@ -216,6 +211,28 @@ def GetSubjectList():
         "User-Agent": UserAgent
     }).json()["extra"]["currentDisciplines"]
 
+def CaptchaBypass(quiz_data: dict):
+    if quiz_data["turnstile_mode"] == None:
+        return [False, quiz_data]
+
+    return [True, requests.post("https://kolin.tassomai.com/api/quiz/fetch/" + str(quiz_data["quiz_id"]), headers={
+        "accept": "application/json; version=1.18",
+        "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "authorization": AuthToken,
+        "content-type": "application/json",
+        "priority": "u=1, i",
+        "sec-ch-ua": "\"Not(A:Brand\";v=\"24\", \"Chromium\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "origin": "https://app.tassomai.com/",
+        "referer": "https://app.tassomai.com/",
+        "User-Agent": UserAgent
+    }).json()]
+
+
 ################################################################################################################################################################
 
 UserAgent = GetUserAgent()
@@ -228,8 +245,6 @@ if int(versionName.replace(".", "").replace("v", "")) > VERSION:
     print("[+] Newer release of solvuria is available on github: " + versionName + " > v" + ".".join(list(str(VERSION))))
 
 print("[~] https://github.com/bp-resist/Solvuria  \n" + ("-"*51+"\n"))
-
-
 
 email = input("[>] Enter your email for signing into tassomai: ")
 passw = GetPasswordInput()
@@ -269,8 +284,8 @@ try:
         if j["should_use_preset"]:
             maxDelayBetweenQuestions = j["maximum_delay_between_questions"]
             minDelayBetweenQuestions = j["minimum_delay_between_questions"]
-            maxDelayBetweenQuizzes = j["maximum_delay_between_quizzes"] / 2
-            minDelayBetweenQuizzes = j["minimum_delay_between_quizzes"] / 2
+            maxDelayBetweenQuizzes = j["maximum_delay_between_quizzes"] / 3
+            minDelayBetweenQuizzes = j["minimum_delay_between_quizzes"] / 3
             percentageCorrect = j["percentage_to_answer_correctly"]
             stopAfterTime = j["stop_after_time"] * 60
             print("\n[+] Loaded settings from preset.json file")
@@ -280,8 +295,8 @@ try:
 except:
     maxDelayBetweenQuestions = float(input("\n[>] Maximum delay between questions (seconds): "))
     minDelayBetweenQuestions = float(input("[>] Minimum delay between questions (seconds): "))
-    maxDelayBetweenQuizzes = float(input("[>] Maximum delay between quizzes (seconds): ")) / 2 # These are divided by 2 because they are split between the time before fetching
-    minDelayBetweenQuizzes = float(input("[>] Minimum delay between quizzes (seconds): ")) / 2 # the quiz and the time before answering the first question
+    maxDelayBetweenQuizzes = float(input("[>] Maximum delay between quizzes (seconds): ")) / 3 # These are divided by 3 because they are split into multiple different sleeps
+    minDelayBetweenQuizzes = float(input("[>] Minimum delay between quizzes (seconds): ")) / 3 # The sleeps happen between fetching the quiz and answering the first question
     percentageCorrect = int(input("[>] Percentage of questions to answer correctly: "))
     stopAfterTime = int(input("[>] Stop after N minutes (0 for infinite): ")) * 60
 
@@ -294,12 +309,27 @@ if stopAfterTime:
 firstTimeMeasure = time.time()
 
 while True:
-    quiz = GetQuizzes(subjectId)[0]
+    quizzes = GetQuizzes(subjectId)
+    quiz = False
+    for q in quizzes:
+        if q["type"] == "normal":
+            quiz = q
+    if quiz == False:
+        print("[-] Could not find any quizzes to complete!")
+        print("[-] If you have a class task active, you must complete it manually before using this tool")
+        time.sleep(60)
+        sys.exit()
+
     time.sleep(random.uniform(minDelayBetweenQuizzes, maxDelayBetweenQuizzes))
     courseId, playlistId = quiz["courseId"], quiz["playlistId"]
     q = time.time()
     print("\n[>] Completing quiz on \"" + quiz["playlistName"] + "\" (" + str(courseId) + "-" + str(playlistId) + ")")
-    questions = FetchQuizQuestions(courseId, playlistId)
+    quizData = FetchQuizData(courseId, playlistId)
+    time.sleep(random.uniform(minDelayBetweenQuizzes, maxDelayBetweenQuizzes))
+    quizData = CaptchaBypass(quizData)
+    if quizData[0]:
+        print("[+] Successfully bypassed captcha for quiz " + str(quizData[1]["quiz_id"]))
+    questions = quizData[1]["questions"]
     time.sleep(random.uniform(minDelayBetweenQuizzes, maxDelayBetweenQuizzes))
     print("[>] Solving questions...\n")
 
@@ -315,7 +345,7 @@ while True:
             print("[-] Failed to answer question, sleeping 20 seconds!")
             time.sleep(20)
 
-    if stopAfterTime :
+    if stopAfterTime:
         if time.time() - firstTimeMeasure > stopAfterTime:
             print("[!] The program will now close as " + str(int(stopAfterTime / 60)) + " minute(s) have passed!")
             break
