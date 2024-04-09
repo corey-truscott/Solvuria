@@ -304,8 +304,6 @@ def UpdateLastLogin():
         data=json.dumps(payload),
     )
 
-    print(response.status_code)
-
     if response.status_code == 405:
         return True, currentTime
     else:
