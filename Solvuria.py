@@ -319,7 +319,7 @@ UserAgent = GetUserAgent()
 print("[>] Solvuria - Enhance your learning experience")
 
 latest = requests.get(
-    "https://api.github.com/repos/bp-resist/Solvuria/releases/latest"
+    "https://api.github.com/repos/corey-truscott/Solvuria/releases/latest"
 ).json()
 versionName = latest["tag_name"]
 if int(versionName.replace(".", "").replace("v", "")) > VERSION:
@@ -330,7 +330,7 @@ if int(versionName.replace(".", "").replace("v", "")) > VERSION:
         + ".".join(list(str(VERSION)))
     )
 
-print("[~] https://github.com/bp-resist/Solvuria  \n" + ("-" * 51 + "\n"))
+print("[~] https://github.com/corey-truscott/Solvuria \n    " + ("-" * 42 + "\n"))
 
 email = input("[>] Enter your email for signing into tassomai: ")
 passw = GetPasswordInput()
