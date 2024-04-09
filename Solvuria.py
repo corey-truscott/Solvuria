@@ -19,7 +19,7 @@ except ImportError:
 
     enterKeyCode = 10
 
-VERSION = 130
+VERSION = 140
 
 UserIdentifier = None
 UserAgent = None
@@ -310,6 +310,7 @@ def UpdateLastLogin():
         return True, currentTime
     else:
         return False, None
+
 
 ################################################################################################################################################################
 
