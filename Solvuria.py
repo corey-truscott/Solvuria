@@ -26,7 +26,38 @@ UserAgent = None
 AuthToken = None
 UserData = None
 
-random.seed(secrets.randbelow(1 << 64))
+headers = {
+    "accept": "application/json; version=1.18",
+    "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+    "content-type": "application/json",
+    "priority": "u=1, i",
+    "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"Windows"',
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "origin": "https://app.tassomai.com/",
+    "referer": "https://app.tassomai.com/",
+    "User-Agent": UserAgent,
+    "authorization": AuthToken,
+}
+
+userAgents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.3",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.3",
+    "Mozilla/5.0 (Windows NT 10.0; rv:124.0) Gecko/20100101 Firefox/124.0",
+]
+
+capabilities = {
+    "cordovaPlatform": None,
+    "image": True,
+    "isMobile": False,
+    "mathjax": True,
+    "wondeReady": True,
+}
 
 
 def GetPasswordInput():
@@ -80,58 +111,32 @@ def GenerateContentIdentifier(answer_id: str, question_id: str):
 
 
 def GetUserAgent():
-    return secrets.choice(
-        [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.3",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.3",
-            "Mozilla/5.0 (Windows NT 10.0; rv:124.0) Gecko/20100101 Firefox/124.0",
-        ]
-    )
+    return secrets.choice(userAgents)
 
 
 def Authenticate(email: str, password: str):
     try:
         global UserData, AuthToken, UserIdentifier
-        Response = requests.post(
+        response = requests.post(
             "https://kolin.tassomai.com/api/user/login/",
             headers={
-                "accept": "application/json; version=1.18",
-                "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-                "content-type": "application/json",
-                "priority": "u=1, i",
-                "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": '"Windows"',
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-site",
-                "origin": "https://app.tassomai.com/",
-                "referer": "https://app.tassomai.com/",
-                "User-Agent": UserAgent,
+                key: value for key, value in headers.items() if key != "authorization"
             },
             data=json.dumps(
                 {
-                    "capabilities": {
-                        "cordovaPlatform": None,
-                        "image": True,
-                        "isMobile": False,
-                        "mathjax": True,
-                        "wondeReady": True,
-                    },
+                    **capabilities,
                     "email": email,
                     "password": password,
                 }
             ),
         ).json()
 
-        UserData = Response["user"]
-        AuthToken = "Bearer " + Response["token"]
+        UserData = response["user"]
+        AuthToken = "Bearer " + response["token"]
         UserIdentifier = str(UserData["id"])
 
         return True
-    except Exception as ex:
+    except Exception:
         return False
 
 
@@ -143,53 +148,17 @@ def GetQuizzes(SubjectId: str):
         "https://kolin.tassomai.com/api/quiz/next/"
         + SubjectId
         + "/?capabilities=%7B%22image%22:true,%22mathjax%22:true,%22isMobile%22:false,%22cordovaPlatform%22:null,%22wondeReady%22:true%7D",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
+        headers=headers,
     ).json()["quizzes"]
 
 
 def FetchQuizData(courseId: str, playlistId: str):
     return requests.post(
         "https://kolin.tassomai.com/api/quiz/",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
+        headers=headers,
         data=json.dumps(
             {
-                "capabilities": {
-                    "cordovaPlatform": None,
-                    "image": True,
-                    "isMobile": False,
-                    "mathjax": True,
-                    "wondeReady": True,
-                },
+                **capabilities,
                 "course": courseId,
                 "playlist": playlistId,
                 "requestTime": int(time.time_ns() / 1000000),
@@ -200,24 +169,9 @@ def FetchQuizData(courseId: str, playlistId: str):
 
 
 def AnswerQuestion(answerId: str, askingId: str):
-    r = requests.post(
+    response = requests.post(
         "https://kolin.tassomai.com/api/answer/" + str(asking_id) + "/",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
+        headers=headers,
         data=json.dumps(
             {
                 "answer_id": answerId,
@@ -227,28 +181,13 @@ def AnswerQuestion(answerId: str, askingId: str):
         ),
     )
 
-    return r.status_code == 200
+    return response.status_code == 200
 
 
 def GetSubjectList():
     return requests.get(
         "https://kolin.tassomai.com/api/user/extra/",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
+        headers=headers,
     ).json()["extra"]["currentDisciplines"]
 
 
@@ -260,48 +199,17 @@ def CaptchaBypass(quiz_data: dict):
         True,
         requests.post(
             "https://kolin.tassomai.com/api/quiz/fetch/" + str(quiz_data["quiz_id"]),
-            headers={
-                "accept": "application/json; version=1.18",
-                "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-                "authorization": AuthToken,
-                "content-type": "application/json",
-                "priority": "u=1, i",
-                "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": '"Windows"',
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-site",
-                "origin": "https://app.tassomai.com/",
-                "referer": "https://app.tassomai.com/",
-                "User-Agent": UserAgent,
-            },
+            headers=headers,
         ).json(),
     ]
 
 
 def UpdateLastLogin():
     currentTime = datetime.now().isoformat()
-    payload = {"lastLogin": currentTime}
     response = requests.post(
         "https://kolin.tassomai.com/api/user/extra/",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
-        data=json.dumps(payload),
+        headers=headers,
+        data=json.dumps({"lastLogin": currentTime}),
     )
 
     if response.status_code == 405:
@@ -314,28 +222,14 @@ def RefreshToken():
     global AuthToken
     response = requests.post(
         "https://kolin.tassomai.com/api/user/token-refresh/",
-        headers={
-            "accept": "application/json; version=1.18",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-            "authorization": AuthToken,
-            "content-type": "application/json",
-            "priority": "u=1, i",
-            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "origin": "https://app.tassomai.com/",
-            "referer": "https://app.tassomai.com/",
-            "User-Agent": UserAgent,
-        },
-        data=json.dumps({
-            "token": AuthToken[7:],
-        }),
+        headers=headers,
+        data=json.dumps(
+            {
+                "token": AuthToken[7:],
+            }
+        ),
     )
 
-    print(response.status_code)
     if response.status_code == 200:
         return True
     else:
