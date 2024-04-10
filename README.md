@@ -98,7 +98,7 @@ A - See the table above for infomation on the .json file.
 ## Credits
 * Resist - @.resist - Creator of Solvuria
 * Ayaan. - @aq_1 - Helped with testing version 1.2.0
-* Corey  - @gregorio.zeppeli - Created the README.md file, added RefreshToken() and UpdateLastLogin() functions
+* Corey  - @gregorio.zeppeli - Created the README.md file
 * E4734  - @e4734 - Created the README.md file
 
 ### Disclaimer
