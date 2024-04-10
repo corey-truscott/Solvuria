@@ -220,7 +220,6 @@ def AnswerQuestion(answerId: str, askingId: str):
         },
         data=json.dumps(
             {
-                **capabilities,
                 "answer_id": answerId,
                 "content_id": GenerateContentIdentifier(answerId, askingId),
                 "requestTime": int(time.time_ns() / 1000000),
