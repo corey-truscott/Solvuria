@@ -310,6 +310,38 @@ def UpdateLastLogin():
         return False, None
 
 
+def RefreshToken():
+    global AuthToken
+    response = requests.post(
+        "https://kolin.tassomai.com/api/user/token-refresh/",
+        headers={
+            "accept": "application/json; version=1.18",
+            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "authorization": AuthToken,
+            "content-type": "application/json",
+            "priority": "u=1, i",
+            "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Windows"',
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "origin": "https://app.tassomai.com/",
+            "referer": "https://app.tassomai.com/",
+            "User-Agent": UserAgent,
+        },
+        data=json.dumps({
+            "token": AuthToken[7:],
+        }),
+    )
+
+    print(response.status_code)
+    if response.status_code == 200:
+        return True
+    else:
+        return False
+
+
 ################################################################################################################################################################
 
 UserAgent = GetUserAgent()
@@ -323,9 +355,11 @@ versionName = latest["tag_name"]
 if int(versionName.replace(".", "").replace("v", "")) > VERSION:
     print(
         "[+] Newer release of solvuria is available on github: "
+        + "v"
         + versionName
         + " > v"
         + ".".join(list(str(VERSION)))
+        + "\n    Proceeding regardless may result in bans\n"
     )
 
 print("[~] https://github.com/corey-truscott/Solvuria \n    " + ("-" * 42 + "\n"))
@@ -342,11 +376,18 @@ if not Authenticate(email, passw):
 
 lastLogin, currentTime = UpdateLastLogin()
 if not lastLogin:
-    print(f"[!] Failed to update lastLogin")
+    print("[!] Failed to update lastLogin")
     time.sleep(5)
     sys.exit()
 
 print(f"[+] Updated lastLogin: {currentTime}")
+
+if not RefreshToken():
+    print("[!] Failed to refresh token")
+    time.sleep(5)
+    sys.exit()
+
+print("[+] Refreshed token")
 
 print('[@] Logged in as "' + UserData["firstName"] + " " + UserData["lastName"] + '"\n')
 subjectId = ""
