@@ -19,7 +19,7 @@ except ImportError:
 
     enterKeyCode = 10
 
-VERSION = 141
+VERSION = 150
 
 UserIdentifier = None
 UserAgent = None
