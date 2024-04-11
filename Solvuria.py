@@ -311,7 +311,6 @@ def UpdateLastLogin():
 
 
 def RefreshToken():
-    global AuthToken
     response = requests.post(
         "https://kolin.tassomai.com/api/user/token-refresh/",
         headers={
@@ -335,7 +334,6 @@ def RefreshToken():
         }),
     )
 
-    print(response.status_code)
     if response.status_code == 200:
         return True
     else:
