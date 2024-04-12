@@ -19,7 +19,7 @@ except ImportError:
 
     enterKeyCode = 10
 
-VERSION = 141
+VERSION = 142
 
 UserIdentifier = None
 UserAgent = None
@@ -311,6 +311,7 @@ def UpdateLastLogin():
 
 
 def RefreshToken():
+    global AuthToken
     response = requests.post(
         "https://kolin.tassomai.com/api/user/token-refresh/",
         headers={
@@ -329,15 +330,22 @@ def RefreshToken():
             "referer": "https://app.tassomai.com/",
             "User-Agent": UserAgent,
         },
-        data=json.dumps({
-            "token": AuthToken[7:],
-        }),
+        data=json.dumps(
+            {
+                "token": AuthToken[7:],
+            }
+        ),
     )
 
-    if response.status_code == 200:
-        return True
+    newToken = "Bearer " + response.json()["token"]
+
+    if newToken == AuthToken and response.status_code == 200:
+        return False, True
+    elif newToken != AuthToken and response.status_code == 200:
+        AuthToken = newToken
+        return True, True
     else:
-        return False
+        return False, False
 
 
 ################################################################################################################################################################
@@ -374,18 +382,21 @@ if not Authenticate(email, passw):
 
 lastLogin, currentTime = UpdateLastLogin()
 if not lastLogin:
-    print("[!] Failed to update lastLogin")
+    print("[!] Failed to update last login time")
     time.sleep(5)
     sys.exit()
 
-print(f"[+] Updated lastLogin: {currentTime}")
+print(f"[+] Updated last login time: {currentTime}")
 
-if not RefreshToken():
-    print("[!] Failed to refresh token")
+changedAuthToken, correctStatusCode = RefreshToken()
+if not correctStatusCode:
+    print("[!] Failed to check token")
     time.sleep(5)
     sys.exit()
-
-print("[+] Refreshed token")
+elif not changedAuthToken:
+    print("[+] Didnt refresh token")
+elif changedAuthToken:
+    print("[+] Refreshed token")
 
 print('[@] Logged in as "' + UserData["firstName"] + " " + UserData["lastName"] + '"\n')
 subjectId = ""
